@@ -1,0 +1,58 @@
+---
+title: Composite Images
+layout: page
+metadata: composites
+collection: composites
+---
+<h1>Composite Images</h1>
+<p>Browse composite images by organization and year.</p>
+{% assign items = site.data.composites %}
+{% for item in items %}
+  <div class="card mb-4 text-center">
+    <div class="card-body">
+      <p>
+        <img class="img-thumbnail" src="{{ item.image_thumb | relative_url }}" alt="{{ item.title | escape }}">
+      </p>
+      <h5>{{ item.title }}</h5>
+      <p>Organization: {{ item.org_id }}<br>Year: {{ item.year }}</p>
+    </div>
+  </div>
+{% endfor %}
+<!-- Custom Facets -->
+<div class="facets mt-4">
+  <h3>Filter Composites</h3>
+  {% assign facets = "year,org_id" | split: "," %}
+  {% for facet in facets %}
+    {% assign values = site.data.composites | map: facet | uniq | sort %}
+    {% if values.size > 0 %}
+      <div class="facet mb-3">
+        <label>{{ facet | capitalize }}:</label>
+        <select class="form-control facet-select" data-facet="{{ facet }}">
+          <option value="">All</option>
+          {% for value in values %}
+            {% if value %}
+              <option value="{{ value | escape }}">{{ value }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+<script>
+  document.querySelectorAll('.facet-select').forEach(select => {
+    select.addEventListener('change', function() {
+      const facet = this.dataset.facet;
+      const value = this.value;
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardValue = card.querySelector(`p:contains("${facet}:")`)?.textContent?.toLowerCase();
+        if (!value || cardValue.includes(value.toLowerCase())) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

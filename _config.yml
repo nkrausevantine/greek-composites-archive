@@ -59,10 +59,10 @@ organization-logo-nav: https://cdil.lib.uidaho.edu/assets/img/logo.png
 # ROBOTS EXCLUDE
 #
 # set noindex to true if you do NOT want Google to index your site
-# noindex: true 
+# noindex: true
 
 ##########
-# BUILD SETTINGS 
+# BUILD SETTINGS
 #
 # Note: use environment variable on build command to include analytics
 # JEKYLL_ENV=production jekyll build
@@ -73,3 +73,29 @@ exclude: [docs/, Rakefile, rakelib/, README.md, LICENSE, CITATION.cff, CODE_OF_C
 # compress CSS output
 sass:
   style: compressed
+title: Greek Composites Archive
+metadata: Abichr_Alpkaiome_440122_2008
+baseurl: ""
+url: "http://localhost:4000"
+collections:
+  items:
+    output: true
+  composites:
+    output: true
+fields:
+  objectid: Object ID
+  title: Title
+  description: Description
+  sitting_number: Sitting Number
+  image_thumb: Image
+  subject: House
+  creator: School
+  relation: Composite
+  date: Year
+  org_id: Organization
+  year: Year
+# DATA
+#
+# add metadata fields for export in data downloads and facets
+metadata-export-fields: "title,org_id,year,image_thumb"
+metadata-facets-fields: year,org_id
